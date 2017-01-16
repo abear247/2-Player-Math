@@ -15,9 +15,11 @@
 @property int rightValue;
 @property int numberPosition;
 @property NSString *answer;
+@property NSArray *players;
 
 -(NSString *)currentAnswer:(int)number;
--(Player *)player;
+-(Player *)curPlayer;
+-(void)switchPlayer;
 -(NSString *)question;
 -(NSString *)score:(int)playerNumber;
 -(BOOL)checkAnswer:(NSString *)answer;

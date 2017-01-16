@@ -22,7 +22,7 @@
     self = [super init];
     if (self){
         _score = 0;
-        _lives = 0;
+        _lives = 3;
     }
     return self;
 }

@@ -10,7 +10,6 @@
 
 @interface GameController()
 
-@property NSArray *players;
 @property int currentPlayer;
 
 @end
@@ -35,10 +34,12 @@
     return [self.answer stringByAppendingString:nextNumber];
 }
 
--(Player *)player{
-    if(self.currentPlayer == 1)
-        return [self.players objectAtIndex:0];
-    return [self.players objectAtIndex:1];
+-(void)switchPlayer{
+    if(self.currentPlayer == 1){
+        self.currentPlayer = 0;
+    }
+    else
+        self.currentPlayer = 1;
 }
 
 -(NSString *)question{
@@ -52,9 +53,13 @@
     return [NSString stringWithFormat:@"Player%d: %d",playerNumber+1,player.score];
 }
 
+-(Player *)curPlayer{
+    return [self.players objectAtIndex:self.currentPlayer];
+}
+
 -(BOOL)checkAnswer:(NSString *)answer{
     NSString *correctAnswer = [NSString stringWithFormat:@"%d",self.leftValue+self.rightValue];
-    if ([self.answer isEqualToString:correctAnswer])
+    if ([answer isEqualToString:correctAnswer])
         return YES;
     return NO;
 }
