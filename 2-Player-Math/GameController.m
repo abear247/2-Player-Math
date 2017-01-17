@@ -64,6 +64,14 @@
     return NO;
 }
 
+-(void)reset{
+    Player *player1 = [self.players objectAtIndex:0];
+    Player *player2 = [self.players objectAtIndex:1];
+    player1.score = 0;
+    player2.score = 0;
+    player1.lives = 3;
+    player2.lives = 3;
+}
 
 
 @end

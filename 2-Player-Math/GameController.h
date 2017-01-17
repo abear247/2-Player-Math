@@ -23,5 +23,6 @@
 -(NSString *)question;
 -(NSString *)score:(int)playerNumber;
 -(BOOL)checkAnswer:(NSString *)answer;
+-(void)reset;
 
 @end
