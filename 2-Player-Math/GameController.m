@@ -11,6 +11,7 @@
 @interface GameController()
 
 @property int currentPlayer;
+@property NSArray *questionTypeNames;
 
 @end
 
@@ -24,6 +25,7 @@
         _players = @[[[Player alloc] initWithName:@"Player 1"] ,
                      [[Player alloc] initWithName:@"Player 2"]];
         _answer = @"";
+        _questionTypeNames = @[@"addition",@"subtraction",@"multiplication"];
     }
     return self;
 }
@@ -45,7 +47,24 @@
 -(NSString *)question{
     self.leftValue = arc4random_uniform(20)+1;
     self.rightValue = arc4random_uniform(20)+1;
-    return [NSString stringWithFormat:@"Player%d: %d + %d",self.currentPlayer+1,self.leftValue,self.rightValue];
+    int i = arc4random_uniform(3);
+    if (i == 0){
+        self.answer = [NSString stringWithFormat:@"%d",self.leftValue+self.rightValue];
+        return [NSString stringWithFormat:@"Player%d: %d + %d",self.currentPlayer+1,self.leftValue,self.rightValue];
+    }
+    if (i == 1){
+        if(self.leftValue < self.rightValue){
+            int i = self.leftValue;
+            self.rightValue = self.leftValue;
+            self.leftValue = i;
+        }
+        
+        self.answer = [NSString stringWithFormat:@"%d",self.leftValue-self.rightValue];
+        return [NSString stringWithFormat:@"Player%d: %d - %d",self.currentPlayer+1,self.leftValue,self.rightValue];
+    }
+    self.answer = [NSString stringWithFormat:@"%d",self.leftValue*self.rightValue];
+    return [NSString stringWithFormat:@"Player%d: %d * %d",self.currentPlayer+1,self.leftValue,self.rightValue];
+    
 }
 
 -(NSString *)score:(int)playerNumber{
@@ -58,7 +77,7 @@
 }
 
 -(BOOL)checkAnswer:(NSString *)answer{
-    NSString *correctAnswer = [NSString stringWithFormat:@"%d",self.leftValue+self.rightValue];
+    NSString *correctAnswer = self.answer;
     if ([answer isEqualToString:correctAnswer])
         return YES;
     return NO;
@@ -72,6 +91,7 @@
     player1.lives = 3;
     player2.lives = 3;
 }
+
 
 
 @end
