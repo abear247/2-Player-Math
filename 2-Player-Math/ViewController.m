@@ -81,12 +81,29 @@
     self.player2Lives.text = [@"Player2 lives: " stringByAppendingString:[NSString stringWithFormat:@"%d",player2.lives]];
     if (player1.lives == 0){
         self.answerLabel.text = @"GAME OVER, player2 wins!";
-        [self.gameController reset];
+         [self gameOver];
+       
     }
     else if (player2.lives == 0){
         self.answerLabel.text = @"GAME OVER, player1 wins!";
-        [self.gameController reset];
+         [self gameOver];
+         
     }
+    
+}
+
+-(void)gameOver{
+    [self.gameController reset];
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"GAME OVER"
+                                                                   message:@"Play again?"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {}];
+    
+    [alert addAction:defaultAction];
+    [self presentViewController:alert animated:YES completion:nil];
+    [self update];
     
 }
 
